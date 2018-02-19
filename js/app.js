@@ -3,6 +3,11 @@
  */
 var allCards = [];
 
+for (var i = 0; i < 16; i += 1){
+  allcards = allCards.push("card" + i);
+}
+
+console.log (allCards);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
