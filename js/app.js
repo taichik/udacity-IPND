@@ -1,19 +1,16 @@
-/*
- * Create a list that holds all of your cards
- */
+// Create an array object that holds all of your cards.
 var allCards = [];
 
-for (var i = 0; i < 16; i += 1){
-  allcards = allCards.push("card" + i);
-}
+// Add all li.card to the array allCards.
+allCards = $( ".card" ).get();
 
-console.log (allCards);
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+// Shuffle the order of li.card elements inside allCards.
+allCards = shuffle(allCards);
+
+// Add each array card back to ul.deck.
+allCards.forEach(function(element){
+  $(".deck").append(element);
+});
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
