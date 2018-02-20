@@ -25,9 +25,11 @@ function shuffle(array) {
     return array;
 }
 
-$(".card").click(function(evt){
-    console.log($(evt.target));
-}); //Set event listener for .card to track click 
+/* Set event listener on .card to monitor click.
+Show card and icon on click */
+$(".card").click(function openCard(evt){
+    $(evt.target).addClass("open show");
+});
 
 /*
  * set up the event listener for a card. If a card is clicked:
