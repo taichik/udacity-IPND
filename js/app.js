@@ -27,8 +27,13 @@ function shuffle(array) {
 
 /* Set event listener on .card to monitor click.
 Show card and icon on click */
-$(".card").click(function openCard(evt){
+var openCards = [];
+
+$(".card").click(function openAndShow(evt){
     $(evt.target).addClass("open show");
+})
+    .click(function addToList(evt){
+      openCards.push($(evt.target));
 });
 
 /*
