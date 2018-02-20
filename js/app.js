@@ -1,5 +1,7 @@
 // Create an array object that holds all of your cards.
 var allCards = [];
+
+
 allCards = $( ".card" ).get();
 
 // Shuffle the order of li.card elements inside allCards.
@@ -25,16 +27,31 @@ function shuffle(array) {
     return array;
 }
 
-/* Set event listener on .card to monitor click.
-Show card and icon on click */
+
 var openCards = [];
 
+/* Set event listener on .card to monitor click.
+Show card and icon on click */
 $(".card").click(function openAndShow(evt){
     $(evt.target).addClass("open show");
 })
+
+/* add clicked card to openCards list */
     .click(function addToList(evt){
       openCards.push($(evt.target));
-});
+      console.log(openCards);
+
+/* Compare html of the first card and second card in the list */
+      if (openCards.length === 2){
+        var itemOne = openCards[0].html();
+        var itemTwo = openCards[1].html();
+        if (itemOne == itemTwo){
+          console.log("it is a match");
+        } else {
+          console.log("it is not a match");
+        }
+      }
+    });
 
 /*
  * set up the event listener for a card. If a card is clicked:
