@@ -47,6 +47,8 @@ $(".card").click(function openAndShow(evt){
         var itemTwo = openCards[1].html();
         if (itemOne == itemTwo){
           console.log("it is a match");
+          $(openCards).toggleClass("open show match"); //lock the card in the open position.
+
         } else {
           console.log("it is not a match");
         }
