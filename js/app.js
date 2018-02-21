@@ -39,18 +39,18 @@ $(".card").click(function openAndShow(evt){
 /* add clicked card to openCards list */
     .click(function addToList(evt){
       openCards.push($(evt.target));
-      console.log(openCards);
-
 /* Compare html of the first card and second card in the list */
       if (openCards.length === 2){
         var itemOne = openCards[0].html();
         var itemTwo = openCards[1].html();
         if (itemOne == itemTwo){
-          console.log("it is a match");
           $(openCards).toggleClass("open show match"); //lock the card in the open position.
-
+          openCards = []; //Reset openCards list
         } else {
-          console.log("it is not a match");
+          setTimeout(function reset(){
+            $(openCards).toggleClass("open show");
+            openCards = [];
+          }, 1000); //Reset cards after 1 sec if no match
         }
       }
     });
