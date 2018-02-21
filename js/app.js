@@ -30,6 +30,18 @@ function shuffle(array) {
 
 var openCards = [];
 
+/* Close last 2 cards */
+function noMatch(){
+  $(openCards).toggleClass("open show");
+  openCards = [];
+}
+
+/*lock the card in the open position.*/
+function match(){
+  $(openCards).toggleClass("open show match");
+  openCards = [];
+}
+
 /* Set event listener on .card to monitor click.
 Show card and icon on click */
 $(".card").click(function openAndShow(evt){
@@ -44,13 +56,9 @@ $(".card").click(function openAndShow(evt){
         var itemOne = openCards[0].html();
         var itemTwo = openCards[1].html();
         if (itemOne == itemTwo){
-          $(openCards).toggleClass("open show match"); //lock the card in the open position.
-          openCards = []; //Reset openCards list
+          match();
         } else {
-          setTimeout(function reset(){
-            $(openCards).toggleClass("open show");
-            openCards = [];
-          }, 1000); //Reset cards after 1 sec if no match
+          setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
         }
       }
     });
