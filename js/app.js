@@ -42,16 +42,43 @@ function match(){
   openCards = [];
 }
 
-/* Set event listener on .card to monitor click.
-Show card and icon on click */
-$(".card").click(function openAndShow(evt){
+/* Change card color and show icon  */
+function openAndShow(evt){
     $(evt.target).addClass("open show");
-})
+}
 
-/* add clicked card to openCards list */
-    .click(function addToList(evt){
-      openCards.push($(evt.target));
+/*add clicked card to the list */
+function addToList(evt){
+  openCards.push($(evt.target));
+}
+
 /* Compare html of the first card and second card in the list */
+function compareCards(openCards){
+  if (openCards.length === 2){
+    var itemOne = openCards[0].html();
+    var itemTwo = openCards[1].html();
+    if (itemOne == itemTwo){
+      match();
+    } else {
+      setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
+    }
+  }
+}
+
+/* Set event listener on .card to monitor click. When clicked, open card and show icon, add it to the list, check if 2 cards are matching. */
+$(".card").click(function(evt){
+  openAndShow(evt);
+  addToList(evt);
+  compareCards(openCards);
+
+});
+
+
+/* add clicked card to openCards list
+    .click(function addToList(evt){
+      openCards.push($(evt.target)); */
+
+/* Compare html of the first card and second card in the list
       if (openCards.length === 2){
         var itemOne = openCards[0].html();
         var itemTwo = openCards[1].html();
@@ -62,6 +89,7 @@ $(".card").click(function openAndShow(evt){
         }
       }
     });
+    */
 
 /*
  * set up the event listener for a card. If a card is clicked:
