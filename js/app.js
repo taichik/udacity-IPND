@@ -61,6 +61,7 @@ function compareCards(openCards){
       match();
     } else {
       setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
+      decreaseMoves();
     }
   }
 }
@@ -73,23 +74,19 @@ $(".card").click(function(evt){
 
 });
 
+var moveLeft = 3;
 
-/* add clicked card to openCards list
-    .click(function addToList(evt){
-      openCards.push($(evt.target)); */
+function decreaseMoves(){
+  moveLeft -= 1;
+  
+  if (moveLeft === 1){
+    $(".moves").text(moveLeft);
+    $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); //Handle singular/Plural change.
 
-/* Compare html of the first card and second card in the list
-      if (openCards.length === 2){
-        var itemOne = openCards[0].html();
-        var itemTwo = openCards[1].html();
-        if (itemOne == itemTwo){
-          match();
-        } else {
-          setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
-        }
-      }
-    });
-    */
+  }else{
+    $(".moves").text(moveLeft);
+  }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
