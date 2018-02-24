@@ -78,16 +78,23 @@ var moveLeft = 3;
 
 function decreaseMoves(){
   moveLeft -= 1;
-  
+  $(".stars li").eq(-0).remove(); //remove star
+
   if (moveLeft === 1){
     $(".moves").text(moveLeft);
-    $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); //Handle singular/Plural change.
-
+    $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); //Handle singular/Plural change
+  }if (moveLeft === 0){
+      gameOver();
   }else{
     $(".moves").text(moveLeft);
   }
 }
 
+/*Display Gameover state */
+function gameOver(){
+  $(".moves").remove();
+  $('.score-panel').html($('.score-panel').html().replace('Move','Game Over!!'));
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
