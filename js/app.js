@@ -130,13 +130,6 @@ function reset(){
   $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
 }
 
-/* Display Gameover state */
-function gameOver(){
-  $(".moves").remove();
-  $('.score-panel').html($('.score-panel').html().replace('Move','Game Over!!'));
-}
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
