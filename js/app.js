@@ -76,9 +76,47 @@ $(".card").click(function(evt){
 
 var moveLeft = 3;
 
+
+/* Start timer on page load */
+var startTime = new Date().getTime();
+var timeSpent;
+var timer;
+
+window.onload = function startGame(){
+  timer = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = now - startTime;
+    timeSpent = Math.floor((distance % (1000 * 60)) / 1000);
+    console.log(timeSpent);
+    moveStars(timeSpent);
+  }, 1000);
+}
+
+/* Stop timer on X and return timeSpent */
+function stopTimer(){
+  clearInterval(timer);
+  console.log(timeSpent);
+}
+$("header").click(stopTimer);
+
+/* Remove star every 20 seconds */
+var starLeft = 3;
+function moveStars(timeSpent){
+  if(timeSpent === 20){
+    $(".stars i").eq(-1).removeClass("fa-star").addClass("fa-star-o"); //Change star to outline
+    starLeft -= 1;
+  }if(timeSpent === 40){
+    $(".stars i").eq(-2).removeClass("fa-star").addClass("fa-star-o");
+    starLeft -= 1;
+  }if(timeSpent === 60){
+    $(".stars i").eq(-3).removeClass("fa-star").addClass("fa-star-o");
+    starLeft -= 1;
+  }
+}
+
 function decreaseMoves(){
   moveLeft -= 1;
-  $(".stars li").eq(-0).remove(); //remove star
+  $(".stars li").eq(-0).css("fa-star", "fa-star-o"); //Change star to outline
 
   if (moveLeft === 1){
     $(".moves").text(moveLeft);
