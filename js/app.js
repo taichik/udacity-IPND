@@ -1,7 +1,6 @@
 // Create an array object that holds all of your cards.
 var allCards = [];
 
-
 allCards = $( ".card" ).get();
 
 // Shuffle the order of li.card elements inside allCards.
@@ -61,8 +60,8 @@ function compareCards(openCards){
       match();
     } else {
       setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
-      decreaseMoves();
     }
+    increaseMove();
   }
 }
 
@@ -71,18 +70,14 @@ $(".card").click(function(evt){
   openAndShow(evt);
   addToList(evt);
   compareCards(openCards);
-
 });
-
-var moveLeft = 3;
-
 
 /* Start timer on page load */
 var startTime = new Date().getTime();
 var timeSpent;
 var timer;
 
-window.onload = function startGame(){
+window.onload = function(){
   timer = setInterval(function() {
     var now = new Date().getTime();
     var distance = now - startTime;
@@ -114,25 +109,34 @@ function moveStars(timeSpent){
   }
 }
 
-function decreaseMoves(){
-  moveLeft -= 1;
-  $(".stars li").eq(-0).css("fa-star", "fa-star-o"); //Change star to outline
+/* count the total number of moves taken */
+var totalMove;
 
-  if (moveLeft === 1){
-    $(".moves").text(moveLeft);
+function increaseMove(){
+  totalMove += 1;
+  $(".moves").text(totalMove);
+  if (totalMove <= 1){
     $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); //Handle singular/Plural change
-  }if (moveLeft === 0){
-      gameOver();
-  }else{
-    $(".moves").text(moveLeft);
+  }if(totalMove == 2){
+    $('.score-panel').html($('.score-panel').html().replace('Move',' Moves'));
   }
 }
 
-/*Display Gameover state */
+window.onload = reset();
+
+function reset(){
+  totalMove = 0;
+  $(".moves").text(totalMove);
+  $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
+}
+
+/* Display Gameover state */
 function gameOver(){
   $(".moves").remove();
   $('.score-panel').html($('.score-panel').html().replace('Move','Game Over!!'));
 }
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
