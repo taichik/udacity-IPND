@@ -77,7 +77,9 @@ var startTime = new Date().getTime();
 var timeSpent;
 var timer;
 
-window.onload = function(){
+window.onload = startTimer();
+
+function startTimer(){
   timer = setInterval(function() {
     var now = new Date().getTime();
     var distance = now - startTime;
@@ -99,6 +101,7 @@ var starLeft = 3;
 function moveStars(timeSpent){
   if(timeSpent === 20){
     $(".stars i").eq(-1).removeClass("fa-star").addClass("fa-star-o"); //Change star to outline
+    console.log(timeSpent);
     starLeft -= 1;
   }if(timeSpent === 40){
     $(".stars i").eq(-2).removeClass("fa-star").addClass("fa-star-o");
@@ -110,7 +113,7 @@ function moveStars(timeSpent){
 }
 
 /* count the total number of moves taken */
-var totalMove;
+var totalMove = 0;
 
 function increaseMove(){
   totalMove += 1;
@@ -122,14 +125,16 @@ function increaseMove(){
   }
 }
 
-window.onload = reset();
 
 function reset(){
   totalMove = 0;
   $(".moves").text(totalMove);
   $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
-}
+};
 
+
+
+//location.reload()
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
