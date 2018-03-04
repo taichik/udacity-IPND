@@ -72,33 +72,9 @@ $(".card").click(function(evt){
   compareCards(openCards);
 });
 
-/* Start timer on page load */
-var startTime = new Date().getTime();
-var timeSpent;
-var timer;
-
-window.onload = startTimer();
-
-function startTimer(){
-  timer = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = now - startTime;
-    timeSpent = Math.floor((distance % (1000 * 60)) / 1000);
-    console.log(timeSpent);
-    moveStars(timeSpent);
-  }, 1000);
-}
-
-/* Stop timer on X and return timeSpent */
-function stopTimer(){
-  clearInterval(timer);
-  console.log(timeSpent);
-}
-$("header").click(stopTimer);
-
 /* Remove star every 20 seconds */
-var starLeft = 3;
-function moveStars(timeSpent){
+
+function removeStars(timeSpent, starLeft){
   if(timeSpent === 20){
     $(".stars i").eq(-1).removeClass("fa-star").addClass("fa-star-o"); //Change star to outline
     console.log(timeSpent);
@@ -111,6 +87,18 @@ function moveStars(timeSpent){
     starLeft -= 1;
   }
 }
+
+/* Count seconds and then call removeStars */
+function startTimer(timeSpent){
+  var timeSpent = 0;
+  var starLeft = 3;
+  setInterval(function() {
+    timeSpent += 1;
+    console.log(timeSpent);
+    removeStars(timeSpent, starLeft);
+  }, 1000);
+}
+
 
 /* count the total number of moves taken */
 var totalMove = 0;
