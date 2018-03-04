@@ -89,13 +89,17 @@ function removeStars(timeSpent, starLeft){
 }
 
 /* Count seconds and then call removeStars */
-function startTimer(timeSpent){
+function startTimer(){
   var timeSpent = 0;
   var starLeft = 3;
-  setInterval(function() {
+  var gameTime = setInterval(function() {
     timeSpent += 1;
     console.log(timeSpent);
     removeStars(timeSpent, starLeft);
+    if (timeSpent === 10){
+      console.log(timeSpent);
+      clearInterval(gameTime);
+    }
   }, 1000);
 }
 
