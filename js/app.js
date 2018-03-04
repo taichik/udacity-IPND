@@ -28,6 +28,7 @@ function shuffle(array) {
 
 
 var openCards = [];
+var numberOfMatch = 0;
 
 /* Close last 2 cards */
 function noMatch(){
@@ -39,7 +40,8 @@ function noMatch(){
 function match(){
   $(openCards).toggleClass("open show match");
   openCards = [];
-}
+  numberOfMatch += 1;
+  }
 
 /* Change card color and show icon  */
 function openAndShow(evt){
@@ -65,12 +67,13 @@ function compareCards(openCards){
   }
 }
 
-/* Set event listener on .card to monitor click. When clicked, open card and show icon, add it to the list, check if 2 cards are matching. */
-$(".card").click(function(evt){
+/* Set event listener on .card to monitor click. When clicked, open card and show icon, add it to the list, check if 2 cards are matching.
+$(".card").click("li", function(evt){
   openAndShow(evt);
   addToList(evt);
   compareCards(openCards);
 });
+*/
 
 /* Remove star every 20 seconds */
 
@@ -88,6 +91,7 @@ function removeStars(timeSpent, starLeft){
   }
 }
 
+var gameTime;
 /* Count seconds and then call removeStars */
 function startTimer(){
   var timeSpent = 0;
@@ -96,8 +100,9 @@ function startTimer(){
     timeSpent += 1;
     console.log(timeSpent);
     removeStars(timeSpent, starLeft);
-    if (timeSpent === 10){  //End timer
+    if (numberOfMatch === 8){  //End timer
       console.log(timeSpent);
+      console.log("WINNING");
       clearInterval(gameTime);
     }
   }, 1000);
@@ -124,14 +129,23 @@ function reset(){
   $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
 };
 
+
+// start game
 $(document).ready(function(){
   reset();
+
   startTimer();
-  $(".restart").click(function(){
+
+  $(".restart").click("div", function(){
     location.reload();
-  })
+  });
 });
 
+$(".card").click("li", function(evt){
+  openAndShow(evt);
+  addToList(evt);
+  compareCards(openCards);
+});
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
