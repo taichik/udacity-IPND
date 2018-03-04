@@ -96,7 +96,7 @@ function startTimer(){
     timeSpent += 1;
     console.log(timeSpent);
     removeStars(timeSpent, starLeft);
-    if (timeSpent === 10){
+    if (timeSpent === 10){  //End timer
       console.log(timeSpent);
       clearInterval(gameTime);
     }
@@ -124,7 +124,10 @@ function reset(){
   $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
 };
 
-
+$(document).ready(function(){
+  reset();
+  startTimer();
+});
 
 //location.reload()
 /*
