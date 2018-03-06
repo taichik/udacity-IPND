@@ -51,20 +51,23 @@ function openAndShow(evt){
 /*add clicked card to the list */
 function addToList(evt){
   openCards.push($(evt.target));
+  compareCards();
+
 }
 
 /* Compare html of the first card and second card in the list */
-function compareCards(openCards){
+function compareCards(){
   if (openCards.length === 2){
+    increaseMove();
     var itemOne = openCards[0].html();
     var itemTwo = openCards[1].html();
-    if (itemOne == itemTwo){
+    if (itemOne === itemTwo){
       match();
     } else {
       setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
     }
-    increaseMove();
   }
+  setReloadTriggar();
 }
 
 /* Set event listener on .card to monitor click. When clicked, open card and show icon, add it to the list, check if 2 cards are matching.
@@ -129,22 +132,22 @@ function reset(){
   $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
 };
 
+function setReloadTriggar(){
+  $(".restart").click("div", function(){
+  location.reload();
+  });
+}
 
 // start game
 $(document).ready(function(){
   reset();
-
   startTimer();
-
-  $(".restart").click("div", function(){
-    location.reload();
-  });
+  setReloadTriggar();
 });
 
 $(".card").click("li", function(evt){
   openAndShow(evt);
   addToList(evt);
-  compareCards(openCards);
 });
 /*
  * set up the event listener for a card. If a card is clicked:
