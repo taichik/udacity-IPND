@@ -67,7 +67,6 @@ function compareCards(){
       setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
     }
   }
-  setReloadTriggar();
 }
 
 /* Set event listener on .card to monitor click. When clicked, open card and show icon, add it to the list, check if 2 cards are matching.
@@ -119,10 +118,9 @@ function increaseMove(){
   totalMove += 1;
   $(".moves").text(totalMove);
   if (totalMove <= 1){
-    $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); //Handle singular/Plural change
+    $('.moveText').text("Move"); //Handle singular/Plural change
   }if(totalMove == 2){
-    $('.score-panel').html($('.score-panel').html().replace('Move',' Moves'));
-  }
+    $('.moveText').text("Moves");  }
 }
 
 
@@ -130,6 +128,7 @@ function reset(){
   totalMove = 0;
   $(".moves").text(totalMove);
   $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
+  $(".deck").children("*").removeClass("match open show"); //hide all cards
 };
 
 function setReloadTriggar(){
@@ -143,12 +142,15 @@ $(document).ready(function(){
   reset();
   startTimer();
   setReloadTriggar();
+
 });
 
 $(".card").click("li", function(evt){
   openAndShow(evt);
   addToList(evt);
 });
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
