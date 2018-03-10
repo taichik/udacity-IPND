@@ -52,7 +52,6 @@ function openAndShow(evt){
 function addToList(evt){
   openCards.push($(evt.target));
   compareCards();
-
 }
 
 /* Compare html of the first card and second card in the list */
@@ -69,20 +68,13 @@ function compareCards(){
   }
 }
 
-/* Set event listener on .card to monitor click. When clicked, open card and show icon, add it to the list, check if 2 cards are matching.
-$(".card").click("li", function(evt){
-  openAndShow(evt);
-  addToList(evt);
-  compareCards(openCards);
-});
-*/
-
+var starText;
 /* Remove star every 20 seconds */
+var starLeft = 3;
 
-function removeStars(timeSpent, starLeft){
+function removeStars(timeSpent, starLeft, starText){
   if(timeSpent === 20){
     $(".stars i").eq(-1).removeClass("fa-star").addClass("fa-star-o"); //Change star to outline
-    console.log(timeSpent);
     starLeft -= 1;
   }if(timeSpent === 40){
     $(".stars i").eq(-2).removeClass("fa-star").addClass("fa-star-o");
@@ -97,7 +89,6 @@ var gameTime;
 /* Count seconds and then call removeStars */
 function startTimer(){
   var timeSpent = 0;
-  var starLeft = 3;
   var gameTime = setInterval(function() {
     timeSpent += 1;
     console.log(timeSpent);
@@ -127,7 +118,7 @@ function increaseMove(){
 function reset(){
   totalMove = 0;
   $(".moves").text(totalMove);
-  $('.score-panel').html($('.score-panel').html().replace('Moves','Move')); // reset total move taken
+  $('.moveText').text("Move"); // reset total move taken
   $(".deck").children("*").removeClass("match open show"); //hide all cards
 };
 
@@ -151,13 +142,8 @@ $(".card").click("li", function(evt){
 });
 
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function endGame(){
+  $(".totalMove").text(totalMove);
+  $(".starLeft").text(starLeft);
+  $(".starText").text(starText);
+}

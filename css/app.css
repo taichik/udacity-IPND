@@ -107,3 +107,12 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.winningMessage {
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    border: 3px solid green;
+    padding: 10px;
+    background-color: white;
+}
