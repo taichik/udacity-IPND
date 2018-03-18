@@ -1,6 +1,5 @@
 // Create an array object that holds all of your cards.
 var allCards = [];
-
 allCards = $( ".card" ).get();
 
 // Shuffle the order of li.card elements inside allCards.
@@ -22,7 +21,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
@@ -89,6 +87,7 @@ function removeStars(timeSpent, starLeft){
 }
 
 var gameTime;
+
 /* Count seconds and then call removeStars */
 function startTimer(){
   var timeSpent = 0;
@@ -96,9 +95,9 @@ function startTimer(){
     timeSpent += 1;
     console.log(timeSpent);
     removeStars(timeSpent, starLeft);
-    if (numberOfMatch === 8){  //End timer
-      clearInterval(gameTime);
-      endGame();
+    if (numberOfMatch === 8){
+      clearInterval(gameTime); //End timer
+      $(".modal").css("display", "block"); //display modal
     }
   }, 1000);
 }
@@ -118,32 +117,30 @@ function increaseMove(){
 
 
 function reset(){
+  // reset total move taken
   totalMove = 0;
   $(".moves").text(totalMove);
-  $('.moveText').text("Move"); // reset total move taken
+  $('.moveText').text("Move");
   $(".deck").children("*").removeClass("match open show"); //hide all cards
 };
 
+
 function setReloadTriggar(){
+  // set event listener for reload button
   $(".restart").click("div", function(){
   location.reload();
   });
 }
 
-// start game
 $(document).ready(function(){
+  // start game
   reset();
   startTimer();
   setReloadTriggar();
 });
 
 $(".card").click("li", function(evt){
+  // open a card on click, and add to the list to check if 2 cards are matched.
   openAndShow(evt);
   addToList(evt);
 });
-
-
-function endGame(){
-  $(".winningMessage").css("display", "block");
-  $(".container").css("display", "none");
-}
