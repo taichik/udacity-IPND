@@ -68,20 +68,23 @@ function compareCards(){
   }
 }
 
-var starText;
 /* Remove star every 20 seconds */
-var starLeft = 3;
+var starLeft = "3 stars";
 
-function removeStars(timeSpent, starLeft, starText){
+function removeStars(timeSpent, starLeft){
+
   if(timeSpent === 20){
     $(".stars i").eq(-1).removeClass("fa-star").addClass("fa-star-o"); //Change star to outline
-    starLeft -= 1;
+    starLeft = "2 stars";
+    $(".starLeft").text(starLeft);
   }if(timeSpent === 40){
     $(".stars i").eq(-2).removeClass("fa-star").addClass("fa-star-o");
-    starLeft -= 1;
+    starLeft = "1 star";
+    $(".starLeft").text(starLeft);
   }if(timeSpent === 60){
     $(".stars i").eq(-3).removeClass("fa-star").addClass("fa-star-o");
-    starLeft -= 1;
+    starLeft = "0 star";
+    $(".starLeft").text(starLeft);
   }
 }
 
@@ -94,9 +97,8 @@ function startTimer(){
     console.log(timeSpent);
     removeStars(timeSpent, starLeft);
     if (numberOfMatch === 8){  //End timer
-      console.log(timeSpent);
-      console.log("WINNING");
       clearInterval(gameTime);
+      endGame();
     }
   }, 1000);
 }
@@ -133,7 +135,6 @@ $(document).ready(function(){
   reset();
   startTimer();
   setReloadTriggar();
-
 });
 
 $(".card").click("li", function(evt){
@@ -143,7 +144,6 @@ $(".card").click("li", function(evt){
 
 
 function endGame(){
-  $(".totalMove").text(totalMove);
-  $(".starLeft").text(starLeft);
-  $(".starText").text(starText);
+  $(".winningMessage").css("display", "block");
+  $(".container").css("display", "none");
 }
