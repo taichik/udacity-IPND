@@ -66,22 +66,33 @@ function compareCards(){
   }
 }
 
-/* Remove star every 20 seconds */
+/* count the total number of moves taken */
+var totalMove = 0;
+
+function increaseMove(){
+  totalMove += 1;
+  $(".moves").text(totalMove);
+  if (totalMove <= 1){
+    $('.moveText').text("Move"); //Handle singular/Plural change
+  }if(totalMove == 2){
+    $('.moveText').text("Moves");
+  }
+  removeStars(totalMove, starLeft);
+}
+
+
+/* Remove star every at 16 and 24 moves*/
 var starLeft = "3 stars";
 
-function removeStars(timeSpent, starLeft){
+function removeStars(totalMove, starLeft){
 
-  if(timeSpent === 20){
+  if(totalMove === 16){
     $(".stars i").eq(-1).removeClass("fa-star").addClass("fa-star-o"); //Change star to outline
     starLeft = "2 stars";
     $(".starLeft").text(starLeft);
-  }if(timeSpent === 40){
+  }if(totalMove === 24){
     $(".stars i").eq(-2).removeClass("fa-star").addClass("fa-star-o");
     starLeft = "1 star";
-    $(".starLeft").text(starLeft);
-  }if(timeSpent === 60){
-    $(".stars i").eq(-3).removeClass("fa-star").addClass("fa-star-o");
-    starLeft = "0 star";
     $(".starLeft").text(starLeft);
   }
 }
@@ -94,7 +105,6 @@ var startTimer = function(){
     timeSpent += 1;
     console.log(timeSpent);
     calculateTime(timeSpent);
-    removeStars(timeSpent, starLeft);
     if (numberOfMatch === 8){
       clearInterval(gameTime); //End timer
       $(".modal").css("display", "block"); //display modal
@@ -127,21 +137,6 @@ function calculateTime(timeSpent){
   $(".timeSpent").text(timeSpent);
 
 }
-
-
-
-/* count the total number of moves taken */
-var totalMove = 0;
-
-function increaseMove(){
-  totalMove += 1;
-  $(".moves").text(totalMove);
-  if (totalMove <= 1){
-    $('.moveText').text("Move"); //Handle singular/Plural change
-  }if(totalMove == 2){
-    $('.moveText').text("Moves");  }
-}
-
 
 function reset(){
   // reset total move taken
