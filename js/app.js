@@ -87,7 +87,8 @@ function removeStars(timeSpent, starLeft){
 }
 
 /* Count seconds and then call removeStars */
-function startTimer(){
+var startTimer = function(){
+  $(".card").off("click", startTimer);//remove event listener for start timer
   var timeSpent = 0;
   var gameTime = setInterval(function() {
     timeSpent += 1;
@@ -164,8 +165,9 @@ $(document).ready(function(){
   setReloadTriggar();
 });
 
+$(".card").on("click", startTimer); //start timer on click
+
 $(".card").click("li", function(evt){
-  startTimer();
   // open a card on click, and add to the list to check if 2 cards are matched.
   openAndShow(evt);
   addToList(evt);
