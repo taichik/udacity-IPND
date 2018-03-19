@@ -86,8 +86,6 @@ function removeStars(timeSpent, starLeft){
   }
 }
 
-//var gameTime;
-
 /* Count seconds and then call removeStars */
 function startTimer(){
   var timeSpent = 0;
@@ -95,11 +93,9 @@ function startTimer(){
     timeSpent += 1;
     console.log(timeSpent);
     calculateTime(timeSpent);
-  //  $(".timeSpent").text(timeSpent);
     removeStars(timeSpent, starLeft);
     if (numberOfMatch === 8){
       clearInterval(gameTime); //End timer
-  //    $(".timeSpent").text(timeSpent);
       $(".modal").css("display", "block"); //display modal
     }
   }, 1000);
