@@ -42,8 +42,9 @@ function match(){
   }
 
 /* Change card color and show icon  */
-function openAndShow(evt){
-    $(evt.target).addClass("open show");
+var openAndShow = function(evt){
+    $(evt.target).addClass("open show").removeClass("notClicked");
+    addToList(evt);
 }
 
 /*add clicked card to the list */
@@ -61,6 +62,8 @@ function compareCards(){
     if (itemOne === itemTwo){
       match();
     } else {
+      openCards[0].addClass("notClicked");
+      openCards[1].addClass("notClicked");
       setTimeout(noMatch, 1000); //Run resetTurn cards after 1 sec if no match
     }
   }
@@ -81,16 +84,17 @@ function increaseMove(){
 }
 
 
-/* Remove star every at 16 and 24 moves*/
+/* Remove star every at 12 and 18 moves*/
 var starLeft = "3 stars";
+$(".starLeft").text(starLeft);
 
 function removeStars(totalMove, starLeft){
 
-  if(totalMove === 16){
+  if(totalMove === 12){
     $(".stars i").eq(-1).removeClass("fa-star").addClass("fa-star-o"); //Change star to outline
     starLeft = "2 stars";
     $(".starLeft").text(starLeft);
-  }if(totalMove === 24){
+  }if(totalMove === 18){
     $(".stars i").eq(-2).removeClass("fa-star").addClass("fa-star-o");
     starLeft = "1 star";
     $(".starLeft").text(starLeft);
@@ -143,7 +147,9 @@ function reset(){
   totalMove = 0;
   $(".moves").text(totalMove);
   $('.moveText').text("Move");
-  $(".deck").children("*").removeClass("match open show"); //hide all cards
+  $(".deck").children("*").removeClass("match open show notClicked"); //hide all cards
+  $(".deck").children("*").addClass("notClicked"); //hide all cards
+
 };
 
 
@@ -162,8 +168,4 @@ $(document).ready(function(){
 
 $(".card").on("click", startTimer); //start timer on click
 
-$(".card").click("li", function(evt){
-  // open a card on click, and add to the list to check if 2 cards are matched.
-  openAndShow(evt);
-  addToList(evt);
-});
+$(".deck").on("click", ".notClicked", openAndShow); // open a card on click, and add to the list to check if 2 cards are matched.
