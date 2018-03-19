@@ -161,11 +161,12 @@ function setReloadTriggar(){
 $(document).ready(function(){
   // start game
   reset();
-  startTimer();
+//  startTimer();
   setReloadTriggar();
 });
 
 $(".card").click("li", function(evt){
+  startTimer();
   // open a card on click, and add to the list to check if 2 cards are matched.
   openAndShow(evt);
   addToList(evt);
