@@ -161,7 +161,6 @@ function setReloadTriggar(){
 $(document).ready(function(){
   // start game
   reset();
-//  startTimer();
   setReloadTriggar();
 });
 
