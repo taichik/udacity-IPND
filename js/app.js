@@ -86,7 +86,7 @@ function removeStars(timeSpent, starLeft){
   }
 }
 
-var gameTime;
+//var gameTime;
 
 /* Count seconds and then call removeStars */
 function startTimer(){
@@ -94,13 +94,43 @@ function startTimer(){
   var gameTime = setInterval(function() {
     timeSpent += 1;
     console.log(timeSpent);
+    calculateTime(timeSpent);
+  //  $(".timeSpent").text(timeSpent);
     removeStars(timeSpent, starLeft);
     if (numberOfMatch === 8){
       clearInterval(gameTime); //End timer
+  //    $(".timeSpent").text(timeSpent);
       $(".modal").css("display", "block"); //display modal
     }
   }, 1000);
 }
+
+
+//display time spent in minutes and seconds
+function calculateTime(timeSpent){
+  var minutesText = "min";
+  var secondsText = "sec";
+  var minutesNumber = Math.floor(timeSpent / 60);
+  var secondsNumber = timeSpent - minutesNumber * 60;
+
+  if (minutesNumber === 1 || minutesNumber === 0){
+    minutesText = "min";
+  }else{
+    minutesText = "mins";
+  }
+
+  if(secondsNumber === 1 || secondsNumber === 0){
+    secondsText = "sec";
+  }else{
+    secondsText = "secs";
+  }
+
+  timeSpent = String(minutesNumber) + " " + minutesText + " " + String(secondsNumber) + " " + secondsText;
+
+  $(".timeSpent").text(timeSpent);
+
+}
+
 
 
 /* count the total number of moves taken */
