@@ -43,8 +43,10 @@ function match(){
 
 /* Change card color and show icon  */
 var openAndShow = function(evt){
-    $(evt.target).addClass("open show").removeClass("notClicked");
+  if(openCards.length <= 1){
+    $(evt.target).addClass("open show").removeClass("notClicked")
     addToList(evt);
+  }
 }
 
 /*add clicked card to the list */
